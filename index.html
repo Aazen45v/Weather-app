@@ -1,17 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Weather App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helix &mdash; Intelligent, Personalized Care</title>
+  <meta name="description" content="Helix is building the future of intelligent personalized care: AI agents that reason over genomic, diagnostic, EHR, and wearable data to deliver precise, individualized health guidance and treatments." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0EA5E9',
+            secondary: '#38BDF8',
+            cta: '#F97316',
+            bgsoft: '#F0F9FF',
+            ink: '#0C4A6E',
+          },
+          fontFamily: {
+            heading: ['Space Grotesk', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
 </head>
-<body>
- 
-<form action="/" method="post">
-    <label for="cityInput">City Name: </label>
-    <input type="text" name="cityName" id="cityInput">
-    <button type="submit">Go</button>
-</form>
+<body class="font-body text-ink antialiased">
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
+  <!-- Navigation -->
+  <header class="fixed inset-x-0 top-0 z-50">
+    <nav class="mx-4 mt-4 sm:mx-6 lg:mx-auto lg:max-w-6xl" aria-label="Primary">
+      <div class="flex items-center justify-between rounded-2xl border border-sky-100 bg-white/80 px-4 py-3 shadow-sm shadow-sky-100/50 backdrop-blur">
+        <a href="#hero" class="flex items-center gap-2 font-heading text-lg font-semibold text-ink">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
+              <path d="M7 2c0 4 10 4 10 8s-10 4-10 8" />
+              <path d="M17 2c0 4-10 4-10 8s10 4 10 8" />
+              <line x1="8" y1="6" x2="16" y2="6" />
+              <line x1="8" y1="18" x2="16" y2="18" />
+            </svg>
+          </span>
+          Helix
+        </a>
 
+        <div class="hidden items-center gap-8 lg:flex">
+          <a href="#data" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Data Revolution</a>
+          <a href="#therapies" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Therapy Revolution</a>
+          <a href="#ecosystem" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Ecosystem</a>
+          <a href="#contact" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Contact</a>
+        </div>
+
+        <a href="#contact" class="hidden cursor-pointer rounded-xl bg-cta px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta lg:inline-block">
+          Partner With Us
+        </a>
+
+        <button
+          id="nav-toggle"
+          type="button"
+          class="cursor-pointer rounded-xl border border-sky-100 p-2 text-ink transition-colors duration-200 hover:bg-bgsoft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary lg:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <svg data-icon="menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+          <svg data-icon="close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="hidden h-6 w-6" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="18" y1="6" x2="6" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden mt-2 rounded-2xl border border-sky-100 bg-white/95 p-4 shadow-sm shadow-sky-100/50 backdrop-blur lg:hidden">
+        <div class="flex flex-col gap-1">
+          <a href="#data" class="rounded-lg px-3 py-2 text-sm font-medium text-ink/80 transition-colors duration-200 hover:bg-bgsoft hover:text-primary">Data Revolution</a>
+          <a href="#therapies" class="rounded-lg px-3 py-2 text-sm font-medium text-ink/80 transition-colors duration-200 hover:bg-bgsoft hover:text-primary">Therapy Revolution</a>
+          <a href="#ecosystem" class="rounded-lg px-3 py-2 text-sm font-medium text-ink/80 transition-colors duration-200 hover:bg-bgsoft hover:text-primary">Ecosystem</a>
+          <a href="#contact" class="mt-1 rounded-lg bg-cta px-3 py-2 text-center text-sm font-semibold text-white transition-colors duration-200 hover:bg-orange-600">Partner With Us</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section id="hero" class="relative overflow-hidden bg-bgsoft pt-36 pb-24 sm:pt-44 sm:pb-32">
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-secondary/20 blur-3xl helix-orbit"></div>
+        <div class="absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-primary/15 blur-3xl helix-orbit-reverse"></div>
+      </div>
+
+      <div class="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8">
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-primary">
+            The future of care delivery
+          </p>
+
+          <h1 class="mt-6 font-heading text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
+            Medicine, tailored to the molecule of you
+          </h1>
+
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
+            Intelligent agents can now analyze your genome, diagnostics, EHR, and wearable
+            data together &mdash; turning a flood of personal health signals into accurate,
+            individual-specific guidance. Pair that with the falling cost of n-of-1 therapies,
+            and a new model of care becomes possible.
+          </p>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a href="#ecosystem" class="cursor-pointer rounded-xl bg-primary px-6 py-3 text-center text-sm font-semibold text-white shadow-sm shadow-sky-200 transition-colors duration-200 hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+              See how it works
+            </a>
+            <a href="#contact" class="cursor-pointer rounded-xl border border-sky-200 bg-white px-6 py-3 text-center text-sm font-semibold text-ink transition-colors duration-200 hover:border-primary hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+              Partner with us
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" aria-hidden="true">
+          <div class="rounded-3xl border border-sky-100 bg-white/80 p-6 shadow-xl shadow-sky-100/60 backdrop-blur">
+            <p class="font-heading text-sm font-semibold text-ink/60">Your data, in one picture</p>
+
+            <div class="mt-5 grid grid-cols-2 gap-3">
+              <div class="flex items-center gap-3 rounded-2xl border border-sky-100 bg-bgsoft p-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 flex-shrink-0 text-primary">
+                  <path d="M7 2c0 4 10 4 10 8s-10 4-10 8" />
+                  <path d="M17 2c0 4-10 4-10 8s10 4 10 8" />
+                  <line x1="8" y1="6" x2="16" y2="6" />
+                  <line x1="8" y1="18" x2="16" y2="18" />
+                </svg>
+                <span class="text-sm font-medium text-ink/80">Genome scan</span>
+              </div>
+
+              <div class="flex items-center gap-3 rounded-2xl border border-sky-100 bg-bgsoft p-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 flex-shrink-0 text-primary">
+                  <path d="M9 2v6.5L4.5 17a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                  <line x1="7" y1="2" x2="17" y2="2" />
+                  <line x1="8" y1="14" x2="16" y2="14" />
+                </svg>
+                <span class="text-sm font-medium text-ink/80">Diagnostics</span>
+              </div>
+
+              <div class="flex items-center gap-3 rounded-2xl border border-sky-100 bg-bgsoft p-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 flex-shrink-0 text-primary">
+                  <path d="M6 2h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+                  <path d="M15 2v3h3" />
+                  <line x1="8" y1="12" x2="16" y2="12" />
+                  <line x1="8" y1="16" x2="13" y2="16" />
+                </svg>
+                <span class="text-sm font-medium text-ink/80">EHR records</span>
+              </div>
+
+              <div class="flex items-center gap-3 rounded-2xl border border-sky-100 bg-bgsoft p-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 flex-shrink-0 text-primary">
+                  <rect x="7" y="7" width="10" height="10" rx="2" />
+                  <path d="M9 7V4h6v3" />
+                  <path d="M9 17v3h6v-3" />
+                  <path d="M12 10v2l1.5 1.5" />
+                </svg>
+                <span class="text-sm font-medium text-ink/80">Wearables</span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-ink/30">
+                <line x1="12" y1="4" x2="12" y2="20" />
+                <path d="M8 16l4 4 4-4" />
+              </svg>
+            </div>
+
+            <div class="mt-2 flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/5 p-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 flex-shrink-0 text-primary">
+                <rect x="6" y="6" width="12" height="12" rx="2" />
+                <circle cx="12" cy="12" r="2.5" />
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+              </svg>
+              <div>
+                <p class="text-sm font-semibold text-ink">Agent harness</p>
+                <p class="text-xs text-ink/60">Reads everything, reasons together</p>
+              </div>
+            </div>
+
+            <div class="mt-2 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-ink/30">
+                <line x1="12" y1="4" x2="12" y2="20" />
+                <path d="M8 16l4 4 4-4" />
+              </svg>
+            </div>
+
+            <div class="mt-2 flex items-center gap-3 rounded-2xl border border-cta/30 bg-orange-50 p-4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 flex-shrink-0 text-cta">
+                <path d="M12 3l1.5 4L18 8.5 14 10l-2 4-2-4-4-1.5L10.5 7z" />
+                <path d="M19 14l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z" />
+              </svg>
+              <div>
+                <p class="text-sm font-semibold text-ink">Personalized plan</p>
+                <p class="text-xs text-ink/60">Specific, explainable, actionable</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats strip -->
+    <section class="border-y border-sky-100 bg-white" aria-label="Key trends">
+      <div class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6 lg:px-8">
+        <div class="fade-in-up text-center sm:text-left">
+          <p class="font-heading text-3xl font-semibold text-primary sm:text-4xl">
+            <span class="stat-value" data-counter-target="2.7" data-counter-decimals="1" data-counter-suffix="B">0B</span>
+            <span class="text-ink/40">&rarr;</span>
+            <span class="stat-value" data-counter-target="200" data-counter-decimals="0" data-counter-suffix="">0</span>
+          </p>
+          <p class="mt-2 text-sm text-ink/60">
+            Approximate cost to sequence a human genome: from $2.7B (2003) to under $200 today.
+          </p>
+        </div>
+
+        <div class="fade-in-up text-center sm:text-left" style="transition-delay: 100ms">
+          <p class="font-heading text-3xl font-semibold text-primary sm:text-4xl">
+            <span class="stat-value" data-counter-target="24" data-counter-decimals="0" data-counter-suffix="/7">0/7</span>
+          </p>
+          <p class="mt-2 text-sm text-ink/60">
+            Continuous signal from wearables and biosensors, instead of a single annual snapshot.
+          </p>
+        </div>
+
+        <div class="fade-in-up text-center sm:text-left" style="transition-delay: 200ms">
+          <p class="font-heading text-3xl font-semibold text-primary sm:text-4xl">
+            <span class="stat-value" data-counter-target="1" data-counter-decimals="0" data-counter-suffix=" of 1">0 of 1</span>
+          </p>
+          <p class="mt-2 text-sm text-ink/60">
+            Therapies increasingly designed and manufactured for a single patient, not a population.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Revolution -->
+    <section id="data" class="bg-white py-20 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="fade-in-up max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary">01 &middot; The data revolution</p>
+          <h2 class="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Diagnosis is getting cheaper, faster, and far more personal
+          </h2>
+          <p class="mt-4 text-base leading-relaxed text-ink/70">
+            The cost of generating personalized diagnostics is falling faster than Moore&rsquo;s
+            law. Genome sequencing, multi-omic profiling, and a new generation of early-detection
+            tests are converging with continuous data from wearables and electronic health
+            records &mdash; giving every patient a far richer picture of their own health.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-bgsoft p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <path d="M7 2c0 4 10 4 10 8s-10 4-10 8" />
+                <path d="M17 2c0 4-10 4-10 8s10 4 10 8" />
+                <line x1="8" y1="6" x2="16" y2="6" />
+                <line x1="8" y1="18" x2="16" y2="18" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Genomic sequencing</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Whole-genome and multi-omic sequencing costs have collapsed, making detailed
+              genetic profiles a realistic part of routine care.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-bgsoft p-6" style="transition-delay: 75ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <path d="M9 2v6.5L4.5 17a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2" />
+                <line x1="7" y1="2" x2="17" y2="2" />
+                <line x1="8" y1="14" x2="16" y2="14" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Early-detection diagnostics</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              New blood-based and imaging diagnostics are entering the market, surfacing
+              health signals years before symptoms appear.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-bgsoft p-6" style="transition-delay: 150ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <rect x="7" y="7" width="10" height="10" rx="2" />
+                <path d="M9 7V4h6v3" />
+                <path d="M9 17v3h6v-3" />
+                <path d="M12 10v2l1.5 1.5" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Wearable biosignals</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Continuous monitoring of heart rate, glucose, sleep, and activity turns
+              health into a stream of data rather than a yearly checkup.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-bgsoft p-6" style="transition-delay: 225ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary shadow-sm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <path d="M6 2h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+                <path d="M15 2v3h3" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+                <line x1="8" y1="16" x2="13" y2="16" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Unified health records</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Interoperable EHR data means a patient&rsquo;s history, labs, and
+              prescriptions can finally sit alongside their genomic and wearable data.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Therapy Revolution -->
+    <section id="therapies" class="bg-bgsoft py-20 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+          <div class="fade-in-up">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary">02 &middot; The therapy revolution</p>
+            <h2 class="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              From one-size-fits-all to n-of-1
+            </h2>
+            <p class="mt-4 text-base leading-relaxed text-ink/70">
+              At the same time, the cost of designing and delivering genetic therapies for a
+              single patient is falling. Delivery vectors like mRNA make it possible to design
+              a treatment around one person&rsquo;s biology &mdash; and regulators, including the
+              FDA, have signaled growing openness to letting patients access these approaches.
+            </p>
+            <p class="mt-4 text-base leading-relaxed text-ink/70">
+              Put together, abundant data and abundant intelligence help patients understand
+              their real disease risk &mdash; and open the door to treatments for serious
+              illnesses that were previously out of reach.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-3xl border border-sky-100 bg-white p-6 shadow-sm sm:p-8" style="transition-delay: 100ms">
+            <ol class="space-y-6">
+              <li class="flex gap-4">
+                <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading text-sm font-semibold text-primary">1</span>
+                <div>
+                  <p class="font-heading text-base font-semibold text-ink">Identify the target</p>
+                  <p class="mt-1 text-sm leading-relaxed text-ink/70">
+                    Genomic and diagnostic data point to the specific mutation or pathway
+                    driving a patient&rsquo;s condition.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading text-sm font-semibold text-primary">2</span>
+                <div>
+                  <p class="font-heading text-base font-semibold text-ink">Design the therapy</p>
+                  <p class="mt-1 text-sm leading-relaxed text-ink/70">
+                    A treatment, such as an mRNA-based therapeutic, is designed around that
+                    individual&rsquo;s biology.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading text-sm font-semibold text-primary">3</span>
+                <div>
+                  <p class="font-heading text-base font-semibold text-ink">Manufacture and deliver</p>
+                  <p class="mt-1 text-sm leading-relaxed text-ink/70">
+                    Faster, more flexible manufacturing platforms shrink the time from design
+                    to delivery.
+                  </p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading text-sm font-semibold text-primary">4</span>
+                <div>
+                  <p class="font-heading text-base font-semibold text-ink">Monitor and adapt</p>
+                  <p class="mt-1 text-sm leading-relaxed text-ink/70">
+                    Ongoing data from wearables and follow-up diagnostics informs whether the
+                    approach is working &mdash; and what comes next.
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="bg-white py-20 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="fade-in-up max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary">How it works</p>
+          <h2 class="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            An agent harness for every patient
+          </h2>
+          <p class="mt-4 text-base leading-relaxed text-ink/70">
+            The same kind of agent harness that powers tools like Claude Code can be pointed at
+            a person&rsquo;s health data &mdash; reading across diagnostics, genome scans, EHR
+            records, and wearable streams to produce guidance specific to them.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="fade-in-up relative rounded-2xl border border-sky-100 p-6">
+            <span class="font-heading text-sm font-semibold text-primary/60">Step 1</span>
+            <h3 class="mt-2 font-heading text-lg font-semibold text-ink">Collect</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Diagnostics, genome scans, EHR records, and wearable data are gathered into one
+              place.
+            </p>
+          </div>
+
+          <div class="fade-in-up relative rounded-2xl border border-sky-100 p-6" style="transition-delay: 75ms">
+            <span class="font-heading text-sm font-semibold text-primary/60">Step 2</span>
+            <h3 class="mt-2 font-heading text-lg font-semibold text-ink">Analyze</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              An agent reasons across the full dataset, spotting patterns that a single test
+              alone would miss.
+            </p>
+          </div>
+
+          <div class="fade-in-up relative rounded-2xl border border-sky-100 p-6" style="transition-delay: 150ms">
+            <span class="font-heading text-sm font-semibold text-primary/60">Step 3</span>
+            <h3 class="mt-2 font-heading text-lg font-semibold text-ink">Recommend</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Patients and clinicians receive specific, explainable suggestions linked back to
+              the underlying evidence.
+            </p>
+          </div>
+
+          <div class="fade-in-up relative rounded-2xl border border-sky-100 p-6" style="transition-delay: 225ms">
+            <span class="font-heading text-sm font-semibold text-primary/60">Step 4</span>
+            <h3 class="mt-2 font-heading text-lg font-semibold text-ink">Treat</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              When warranted, findings connect directly to rapidly designed, individualized
+              therapies.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ecosystem -->
+    <section id="ecosystem" class="bg-bgsoft py-20 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="fade-in-up max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary">The ecosystem</p>
+          <h2 class="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Room for a wide range of startups
+          </h2>
+          <p class="mt-4 text-base leading-relaxed text-ink/70">
+            No single company will own this shift. We expect new startups across every layer
+            of the stack &mdash; from sensing and data infrastructure to intelligent agents and
+            n-of-1 manufacturing.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-white p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <polyline points="3 12 8 12 11 4 14 20 17 12 21 12" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Diagnostics &amp; sensing</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Blood-based, imaging, and continuous biosensor platforms that turn early signals
+              into actionable data.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-white p-6" style="transition-delay: 75ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <path d="M7 2c0 4 10 4 10 8s-10 4-10 8" />
+                <path d="M17 2c0 4-10 4-10 8s10 4 10 8" />
+                <line x1="8" y1="6" x2="16" y2="6" />
+                <line x1="8" y1="18" x2="16" y2="18" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Genomic &amp; multi-omic data</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Sequencing and profiling platforms that map a person&rsquo;s biology to
+              clinically relevant insights.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-white p-6" style="transition-delay: 150ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <path d="M6 2h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" />
+                <path d="M15 2v3h3" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+                <line x1="8" y1="16" x2="13" y2="16" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Health data infrastructure</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Interoperability layers that unify EHRs, labs, and wearables into one
+              longitudinal record.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-white p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <rect x="6" y="6" width="12" height="12" rx="2" />
+                <circle cx="12" cy="12" r="2.5" />
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Intelligent agents</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Agent harnesses that reason over a patient&rsquo;s full data picture to surface
+              risks and recommendations.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-white p-6" style="transition-delay: 75ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <circle cx="6" cy="6" r="2.5" />
+                <circle cx="18" cy="6" r="2.5" />
+                <circle cx="12" cy="18" r="2.5" />
+                <line x1="8" y1="7.5" x2="10.5" y2="16" />
+                <line x1="16" y1="7.5" x2="13.5" y2="16" />
+                <line x1="8.5" y1="6" x2="15.5" y2="6" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">N-of-1 therapeutics</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Rapid design and manufacturing of individualized therapies, including
+              mRNA-based delivery.
+            </p>
+          </div>
+
+          <div class="fade-in-up rounded-2xl border border-sky-100 bg-white p-6" style="transition-delay: 150ms">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" aria-hidden="true">
+                <path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" />
+                <path d="M9 12l2 2 4-4" />
+              </svg>
+            </span>
+            <h3 class="mt-4 font-heading text-lg font-semibold text-ink">Regulatory &amp; access pathways</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/70">
+              Navigating evolving frameworks, including FDA pathways, to bring personalized
+              treatments to patients faster.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / Contact -->
+    <section id="contact" class="bg-white py-20 sm:py-28">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="fade-in-up rounded-3xl border border-sky-100 bg-bgsoft p-8 sm:p-12">
+          <div class="text-center">
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary">For builders</p>
+            <h2 class="mt-3 font-heading text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              Building the future of intelligent, personalized care?
+            </h2>
+            <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink/70">
+              If you&rsquo;re working on diagnostics, data infrastructure, intelligent agents,
+              n-of-1 therapeutics, or the regulatory pathways that connect them &mdash; we&rsquo;d
+              love to hear from you.
+            </p>
+          </div>
+
+          <form id="contact-form" class="mx-auto mt-8 max-w-xl space-y-4" novalidate>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="name" class="block text-sm font-medium text-ink">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="mt-1.5 block w-full rounded-xl border border-sky-200 bg-white px-4 py-2.5 text-sm text-ink shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-ink">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="mt-1.5 block w-full rounded-xl border border-sky-200 bg-white px-4 py-2.5 text-sm text-ink shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="company" class="block text-sm font-medium text-ink">Company / Project</label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                class="mt-1.5 block w-full rounded-xl border border-sky-200 bg-white px-4 py-2.5 text-sm text-ink shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+              />
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-ink">What are you building?</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                required
+                class="mt-1.5 block w-full rounded-xl border border-sky-200 bg-white px-4 py-2.5 text-sm text-ink shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-cta px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
+            >
+              Get in touch
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <path d="M14 6l6 6-6 6" />
+              </svg>
+            </button>
+          </form>
+
+          <div id="contact-success" tabindex="-1" class="hidden mx-auto mt-8 max-w-xl rounded-xl border border-primary/20 bg-primary/5 p-4 text-center text-sm font-medium text-primary" role="status">
+            Thanks for reaching out &mdash; we&rsquo;ll be in touch soon.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-sky-100 bg-bgsoft">
+    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+        <a href="#hero" class="flex items-center gap-2 font-heading text-lg font-semibold text-ink">
+          <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" aria-hidden="true">
+              <path d="M7 2c0 4 10 4 10 8s-10 4-10 8" />
+              <path d="M17 2c0 4-10 4-10 8s10 4 10 8" />
+              <line x1="8" y1="6" x2="16" y2="6" />
+              <line x1="8" y1="18" x2="16" y2="18" />
+            </svg>
+          </span>
+          Helix
+        </a>
+
+        <nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-6">
+          <a href="#data" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Data Revolution</a>
+          <a href="#therapies" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Therapy Revolution</a>
+          <a href="#ecosystem" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Ecosystem</a>
+          <a href="#contact" class="text-sm font-medium text-ink/70 transition-colors duration-200 hover:text-primary">Contact</a>
+        </nav>
+      </div>
+
+      <p class="mt-8 text-center text-xs text-ink/50 sm:text-left">
+        &copy; 2026 Helix. Building the future of intelligent, personalized care.
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
