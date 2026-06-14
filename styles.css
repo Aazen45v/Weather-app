@@ -71,6 +71,59 @@ h1, h2, h3, h4, .font-heading {
   font-variant-numeric: tabular-nums;
 }
 
+/* Hero background media: looping video + dark gradient overlay */
+#hero {
+  isolation: isolate;
+}
+
+#hero .hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+}
+
+#hero .hero-media video {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+#hero .hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(8, 47, 73, 0.92) 0%, rgba(12, 74, 110, 0.82) 45%, rgba(2, 6, 23, 0.95) 100%);
+}
+
+/* Progressive blur: fades the hero background into the page below it */
+#hero .hero-edge-fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 10rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#hero .hero-edge-fade__blur {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+#hero .hero-edge-fade__tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
